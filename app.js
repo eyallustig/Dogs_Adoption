@@ -2,6 +2,9 @@ const express = require("express"),
     port = process.env.PORT || 3000,
     app = express();
 
-app.get('/', (req, res) => res.send('Hello World!'));
+app.set("view engine", "ejs");
+
+
+app.get('/', (req, res) => res.render('landing'));
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
