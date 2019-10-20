@@ -1,0 +1,76 @@
+<% include ../partials/header %>
+
+<div class="container w-25">
+    <form action="/pets" method="POST">
+        <div class="form-group">
+            <input class="form-control" type="text" name="name" placeholder="name">
+        </div>
+
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" name="age" id="puppy" value="puppy" class="custom-control-input">
+            <label class="custom-control-label" for="puppy">Puppy</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" name="age" id="adult" value="adult" class="custom-control-input">
+            <label class="custom-control-label" for="adult">Adult</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" name="age" id="senior" value="senior" class="custom-control-input">
+            <label class="custom-control-label" for="senior">Senior</label>
+        </div>
+
+        <br>
+
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" name="gender" id="male" value="male" class="custom-control-input">
+            <label class="custom-control-label" for="male">Male</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" name="gender" id="female" value="female" class="custom-control-input">
+            <label class="custom-control-label" for="female">Female</label>
+        </div>
+
+        <br>
+
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" name="size" id="small" value="small" class="custom-control-input">
+            <label class="custom-control-label" for="small">Small</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" name="size" id="medium" value="medium" class="custom-control-input">
+            <label class="custom-control-label" for="medium">Medium</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" name="size" id="large" value="large" class="custom-control-input">
+            <label class="custom-control-label" for="large">Large</label>
+        </div>
+        </span>
+
+        <div class="form-group">
+            <input class="form-control" type="text" name="breed" placeholder="breed">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="text" name="location" placeholder="location address">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="text" name="image" placeholder="image url">
+        </div>
+
+        <div class="form-group">
+            <textarea class="form-control" rows="8" id="comment" name="description" placeholder="description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit!</button>
+        </div>
+
+
+    </form>
+
+    <a href="/pets">Go Back</a>
+
+</div>
+
+<% include ../partials/footer %>

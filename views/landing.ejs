@@ -1,11 +1,25 @@
-<% include partials/header %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Find A Pet</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/stylesheets/landing.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+    </head>
+    <body>
+    
 
-<div class="jumbotron w-75 p-3 mx-auto">
-    <div class="container text-center">
-        <h1 class="display-4">Where Pets Find Their People</h1>
-        <p class="lead">Thousands of adoptable pets are looking for people. People like you.</p>
-        <a class="btn btn-outline-primary" href="#" role="button"><i class="fas fa-paw"></i> Add a new pet</a>
+    <div id="landing-header">
+ 		<h1>Welcome to PetFinder!</h1>
+		<a href="/pets" class="btn btn-lg btn-success">View All Pets For Adoption</a>
     </div>
-</div>
+    
+    <ul class="slideshow">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
 
 <% include partials/footer %>
