@@ -1,7 +1,7 @@
 <% include ../partials/header %>
 
 <div class="container">
-    <form action="/pets" method="POST">
+    <form action="/dogs" method="POST">
 
         <div class="row text-center pb-4 pt-2">
             <div class="col">
@@ -12,12 +12,12 @@
         <div class="row justify-content-around">
             <div class="col-sm-5">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="name" placeholder="name">
+                    <input class="form-control" type="text" name="dog[name]" placeholder="name" required>
                 </div>
             </div>
             <div class="col-sm-5 ">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="breed" placeholder="breed">
+                    <input class="form-control" type="text" name="dog[breed]" placeholder="breed" required>
                 </div>
             </div>
         </div>
@@ -25,12 +25,12 @@
         <div class="row justify-content-around">
             <div class="col-sm-5">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="location" placeholder="location address">
+                    <input class="form-control" type="text" name="dog[address]" placeholder="location address" required>
                 </div>
             </div>
             <div class="col-sm-5 ">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="image" placeholder="image url">
+                    <input class="form-control" type="text" name="dog[image]" placeholder="image url" required>
                 </div>
             </div>
         </div>
@@ -38,15 +38,15 @@
         <div class="row pl-2">
             <div class="col pl-5">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="age" id="puppy" value="puppy" class="custom-control-input">
+                    <input type="radio" name="dog[age]" id="puppy" value="puppy" class="custom-control-input" required>
                     <label class="custom-control-label" for="puppy">Puppy</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="age" id="adult" value="adult" class="custom-control-input">
+                    <input type="radio" name="dog[age]" id="adult" value="adult" class="custom-control-input">
                     <label class="custom-control-label" for="adult">Adult</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="age" id="senior" value="senior" class="custom-control-input">
+                    <input type="radio" name="dog[age]" id="senior" value="senior" class="custom-control-input">
                     <label class="custom-control-label" for="senior">Senior</label>
                 </div>
             </div>
@@ -55,11 +55,11 @@
         <div class="row pl-2">
             <div class="col pl-5">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="gender" id="male" value="male" class="custom-control-input">
+                    <input type="radio" name="dog[gender]" id="male" value="male" class="custom-control-input" required>
                     <label class="custom-control-label" for="male">Male</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="gender" id="female" value="female" class="custom-control-input">
+                    <input type="radio" name="dog[gender]" id="female" value="female" class="custom-control-input">
                     <label class="custom-control-label" for="female">Female</label>
                 </div>
             </div>
@@ -68,15 +68,15 @@
         <div class="row pl-2">
             <div class="col pl-5">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="size" id="small" value="small" class="custom-control-input">
+                    <input type="radio" name="dog[size]" id="small" value="small" class="custom-control-input" required>
                     <label class="custom-control-label" for="small">Small</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="size" id="medium" value="medium" class="custom-control-input">
+                    <input type="radio" name="dog[size]" id="medium" value="medium" class="custom-control-input">
                     <label class="custom-control-label" for="medium">Medium</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="size" id="large" value="large" class="custom-control-input">
+                    <input type="radio" name="dog[size]" id="large" value="large" class="custom-control-input">
                     <label class="custom-control-label" for="large">Large</label>
                 </div>
             </div>
@@ -85,7 +85,7 @@
         <div class="row justify-content-around pt-3">
             <div class="col-11">
                 <div class="form-group">
-                    <textarea class="form-control" rows="6" name="description" placeholder="description"></textarea>
+                    <textarea class="form-control" rows="6" name="dog[description]" placeholder="description" required></textarea>
                 </div>
             </div>
         </div>
@@ -102,7 +102,7 @@
 
     <div class="row">
         <div class="col">
-            <a href="/pets">Go Back</a>
+            <a href="/dogs">Go Back</a>
         </div>
     </div>
 
