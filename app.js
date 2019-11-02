@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-// open a connection to the test database on our locally running instance of MongoDB.
+// open a connection to the dogs_adoption database on our locally running instance of MongoDB.
 mongoose.connect('mongodb://localhost/dogs_adoption', {
     useNewUrlParser: true,
     useUnifiedTopology: true

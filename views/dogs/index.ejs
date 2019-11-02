@@ -8,20 +8,25 @@
     </div>
 </div>
 
-<div class="text-cebter">
-    <% dogs.forEach(dog => { %>
-        <h4><%= dog.name %></h4>
-        <div class="card" style="width: 18rem;">
-            <img src="<%= dog.image %>" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title"><%= dog.name %></h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                    content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+
+<div class="container">
+    <div class="row text-center">
+        <% dogs.forEach(dog => { %>
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card ml-3">
+                <img src="<%= dog.image %>" class="card-img-top" alt="<%= dog.name %>">
+                <div class="card-body">
+                    <h5 class="card-title"><%= dog.name %></h5>
+                    <p class="card-text">
+                        <%= dog.breed %> <br>
+                        <%= dog.age %> <i class="fas fa-paw"></i> <%= dog.gender %> <br>
+                    </p>
+                    <a href="/dogs/<%= dog._id %>" class="btn btn-primary">More Info</a>
+                </div>
             </div>
         </div>
-    <% }); %>
+        <% }); %>
+    </div>
 </div>
-
 
 <% include ../partials/footer %>

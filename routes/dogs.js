@@ -1,4 +1,5 @@
 const express = require("express"),
+    asyncHandler = require('express-async-handler'),
     Dog = require("../models/dog"),
     router = express.Router();
 
@@ -8,7 +9,6 @@ router.get('/', (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(allDogs);
             res.render("dogs/index", {
                 dogs: allDogs
             });
@@ -24,7 +24,6 @@ router.get('/new', (req, res) => {
 // CREATE - Create a new dog, then redirect somewhere
 router.post('/', (req, res) => {
     let newDog = req.body.dog;
-    console.log(newDog);
     // create a new dog and save to DB
     Dog.create(newDog, (err, newlyCreated) => {
         if (err) {
