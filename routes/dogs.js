@@ -1,5 +1,4 @@
 const express = require("express"),
-    asyncHandler = require('express-async-handler'),
     Dog = require("../models/dog"),
     router = express.Router();
 
