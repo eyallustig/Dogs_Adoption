@@ -34,4 +34,19 @@ router.post('/', (req, res) => {
     })
 });
 
+// SHOW - shows more info about one dog
+router.get("/:id", (req, res) => {
+    // find the dog with the provided id
+    const { id } = req.params;
+    Dog.findById(id).exec((err, foundDog) => {
+        if (err || !foundDog) {
+            res.redirect("back");
+        } else {
+            res.render("dogs/show", {
+                dog: foundDog
+            });
+        }
+    });
+});
+
 module.exports = router;

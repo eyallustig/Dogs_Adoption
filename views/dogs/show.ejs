@@ -1,0 +1,25 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row justify-content-around">
+        <div class="col-7">
+            <div class="card ml-3">
+                <img src="<%= dog.image %>" class="card-img-top" alt="<%= dog.name %>">
+                <div class="card-body">
+                    <h3 class="card-title"><%= dog.name %></h3>
+                    <p class="card-text">
+                        <ul class="list-inline">
+                            <em>
+                                <li class="list-inline-item"><%= dog.breed %></li>
+                                <li class="list-inline-item"><%= dog.address %></li>
+                            </em>
+                        </ul>
+                    </p>
+                    <a href="/dogs/<%= dog._id %>" class="btn btn-primary">More Info</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
