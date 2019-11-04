@@ -3,17 +3,17 @@ const express = require("express"),
     router = express.Router();
 
 // INDEX - show all dogs
-router.get('/', (req, res) => {
-    Dog.find({}, (err, allDogs) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render("dogs/index", {
-                dogs: allDogs
-            });
-        }
-    });
+router.get('/', async (req, res) => {
+    try {
+        const allDogs = await Dog.find({});
+        res.render("dogs/index", {
+            dogs: allDogs
+        });
+    } catch (error) {
+        console.log(error);
+    }
 });
+
 
 // NEW - show form to create new pet
 router.get('/new', (req, res) => {
@@ -21,32 +21,30 @@ router.get('/new', (req, res) => {
 });
 
 // CREATE - Create a new dog, then redirect somewhere
-router.post('/', (req, res) => {
-    let newDog = req.body.dog;
-    // create a new dog and save to DB
-    Dog.create(newDog, (err, newlyCreated) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(`Created dog: ${newlyCreated.name}`);
-            res.redirect("/dogs");
-        }
-    })
+router.post('/', async (req, res) => {
+    try {
+        const newDog = req.body.dog;
+        const newlyCreated = await Dog.create(newDog);
+        console.log(`Created dog: ${newlyCreated.name}`);
+        res.redirect("/dogs");
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 // SHOW - shows more info about one dog
-router.get("/:id", (req, res) => {
-    // find the dog with the provided id
-    const { id } = req.params;
-    Dog.findById(id).exec((err, foundDog) => {
-        if (err || !foundDog) {
-            res.redirect("back");
-        } else {
-            res.render("dogs/show", {
-                dog: foundDog
-            });
+router.get("/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const foundDog = await Dog.findById(id);
+        if (!foundDog) {
+            res.render("back");
         }
-    });
+        res.render("dogs/show", { dog: foundDog });
+    } catch (error) {
+        console.log(error);
+        res.redirect("back");
+    }
 });
 
 // EDIT - show edit form for one dog
