@@ -49,4 +49,9 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// EDIT - show edit form for one dog
+router.get("/:id/edit", (req, res) => {
+    res.send("You hit edit page");
+});
+
 module.exports = router;
