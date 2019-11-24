@@ -11,11 +11,11 @@ router.get('/', async (req, res) => {
         });
     } catch (error) {
         console.log(error);
+        res.redirect("back");
     }
 });
 
-
-// NEW - show form to create new pet
+// NEW - show form to create new dog
 router.get('/new', (req, res) => {
     res.render("dogs/new")
 });
@@ -29,6 +29,7 @@ router.post('/', async (req, res) => {
         res.redirect("/dogs");
     } catch (error) {
         console.log(error);
+        res.redirect("back");
     }
 });
 
@@ -36,11 +37,14 @@ router.post('/', async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const foundDog = await Dog.findById(id);
+        let foundDog = await Dog.findById(id);
+        // replace all line breaks in a string with <br> tags
+        foundDog.description = foundDog.description.replace(/(?:\r\n|\r|\n)/g, '<br>');
         if (!foundDog) {
             res.render("back");
+        } else {
+            res.render("dogs/show", { dog: foundDog });
         }
-        res.render("dogs/show", { dog: foundDog });
     } catch (error) {
         console.log(error);
         res.redirect("back");
@@ -48,8 +52,48 @@ router.get("/:id", async (req, res) => {
 });
 
 // EDIT - show edit form for one dog
-router.get("/:id/edit", (req, res) => {
-    res.send("You hit edit page");
+router.get("/:id/edit", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const foundDog = await Dog.findById(id);
+        if (!foundDog) {
+            res.render("back");
+        } else {
+            res.render("dogs/edit", { dog: foundDog });
+        }
+    } catch (error) {
+        console.log(error);
+        res.redirect("back");
+    }
+});
+
+// UPDATE - update a particular dog and then redirect somewhere
+router.put("/:id", async (req,res) => {
+    try {
+        const { id } = req.params;
+        const { dog } = req.body;
+        const updatedDog = await Dog.findByIdAndUpdate(id, dog);
+        if (!updatedDog) {
+            res.redirect("/dogs");
+        } else {
+            res.redirect(`/dogs/${id}`);
+        }
+    } catch (error) {
+        
+    }
+
+});
+
+// DELETE - delete a particular dog, then redirect somewhere
+router.delete("/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleteStatus = await Dog.deleteOne({ id : id });
+        console.log(deleteStatus);
+        res.redirect("/dogs");
+    } catch (error) {
+        
+    }
 });
 
 module.exports = router;

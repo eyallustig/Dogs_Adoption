@@ -25,7 +25,7 @@
                         </ul>
                         <hr>
                         <h4>Meet <%= dog.name %></h4>
-                        <p><%= dog.description %></p>
+                        <p><%- dog.description %></p>
                     </p>
                     <a class="btn btn-warning" href="/dogs/<%= dog._id %>/edit">Edit</a>
                     <form action="/dogs/<%= dog._id %>?_method=DELETE" method="POST" class="d-inline">

@@ -1,36 +1,35 @@
 <% include ../partials/header %>
 
 <div class="container">
-    <form action="/dogs" method="POST">
+    <div class="row text-center pb-4 pt-2">
+        <div class="col">
+            <h2 class="display-5"><i class="fas fa-paw"></i> Edit <%= dog.name %></h2>
+        </div>
+    </div>
 
-        <div class="row text-center pb-4 pt-2">
-            <div class="col">
-                <h2 class="display-5"><i class="fas fa-paw"></i> Add A New Dog For Adoption</h2>
+    <form action="/dogs/<%= dog.id %>?_method=PUT" method="POST">
+        <div class="row justify-content-around">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="dog[name]" value="<%= dog.name %>" required>
+                </div>
+            </div>
+            <div class="col-sm-5 ">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="dog[breed]" value="<%= dog.breed %>" required>
+                </div>
             </div>
         </div>
 
         <div class="row justify-content-around">
             <div class="col-sm-5">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="dog[name]" placeholder="name" required>
+                    <input class="form-control" type="text" name="dog[address]" value="<%= dog.address %>" required>
                 </div>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-5 ">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="dog[breed]" placeholder="breed" required>
-                </div>
-            </div>
-        </div>
-
-        <div class="row justify-content-around">
-            <div class="col-sm-5">
-                <div class="form-group">
-                    <input class="form-control" type="text" name="dog[address]" placeholder="location address" required>
-                </div>
-            </div>
-            <div class="col-sm-5">
-                <div class="form-group">
-                    <input class="form-control" type="text" name="dog[image]" placeholder="image url" required>
+                    <input class="form-control" type="text" name="dog[image]" value="<%= dog.image %>" required>
                 </div>
             </div>
         </div>
@@ -85,8 +84,8 @@
         <div class="row justify-content-around pt-3">
             <div class="col-11">
                 <div class="form-group">
-                    <textarea class="form-control" rows="6" name="dog[description]" placeholder="description"
-                        required></textarea>
+                    <textarea class="form-control" rows="6" name="dog[description]"
+                        required><%= dog.description %></textarea>
                 </div>
             </div>
         </div>

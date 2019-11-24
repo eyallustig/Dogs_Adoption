@@ -1,4 +1,5 @@
 const express = require("express"),
+    methodOverride = require('method-override'),
     bodyParser = require("body-parser"),
     port = process.env.PORT || 3000,
     mongoose = require('mongoose'),
@@ -17,14 +18,15 @@ app.use(bodyParser.urlencoded({
 // open a connection to the dogs_adoption database on our locally running instance of MongoDB.
 mongoose.connect('mongodb://localhost/dogs_adoption', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 });
 
 // get notified if we connect successfully or if a connection error occurs
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-    console.log("Connected to DB successfuly")
+    console.log("Connected to DB successfuly");
 });
 
 // A template engine enables you to use static template files in your application. 
@@ -35,9 +37,13 @@ app.set("view engine", "ejs");
 // To serve static files such as images, CSS files, and JavaScript files, use the express.static built-in middleware function in Express.
 app.use(express.static(__dirname + "/public"));
 
+// override with POST having ?_method=DELETE
+app.use(methodOverride('_method'));
+
 // use the routes
 app.use("/", indexRoutes);
 // append /dogs to all dog routes
 app.use("/dogs", dogRoutes);
+
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
