@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
             dogs: allDogs
         });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.redirect("back");
     }
 });
@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
         console.log(`Created dog: ${newlyCreated.name}`);
         res.redirect("/dogs");
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.redirect("back");
     }
 });
@@ -38,16 +38,16 @@ router.get("/:id", async (req, res) => {
     try {
         const { id } = req.params;
         let foundDog = await Dog.findById(id);
-        // replace all line breaks in a string with <br> tags
-        foundDog.description = foundDog.description.replace(/(?:\r\n|\r|\n)/g, '<br>');
         if (!foundDog) {
-            res.render("back");
+            throw new Error(`Dog with id ${id} does not exist`);
         } else {
+            // replace all line breaks in a string with <br> tags
+            foundDog.description = foundDog.description.replace(/(?:\r\n|\r|\n)/g, '<br>');
             res.render("dogs/show", { dog: foundDog });
         }
     } catch (error) {
-        console.log(error);
-        res.redirect("back");
+        console.error(error);
+        res.redirect("/dogs");
     }
 });
 
@@ -57,13 +57,13 @@ router.get("/:id/edit", async (req, res) => {
         const { id } = req.params;
         const foundDog = await Dog.findById(id);
         if (!foundDog) {
-            res.render("back");
+            throw new Error(`Dog with id ${id} does not exist`);
         } else {
             res.render("dogs/edit", { dog: foundDog });
         }
     } catch (error) {
-        console.log(error);
-        res.redirect("back");
+        console.error(error);
+        res.redirect("/dogs");
     }
 });
 
@@ -74,25 +74,28 @@ router.put("/:id", async (req,res) => {
         const { dog } = req.body;
         const updatedDog = await Dog.findByIdAndUpdate(id, dog);
         if (!updatedDog) {
-            res.redirect("/dogs");
+            throw new Error(`Dog with id ${id} does not exist`);
         } else {
             res.redirect(`/dogs/${id}`);
         }
     } catch (error) {
-        
+        console.error(error);
+        res.redirect("/dogs");
     }
-
 });
 
 // DELETE - delete a particular dog, then redirect somewhere
 router.delete("/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const deleteStatus = await Dog.deleteOne({ id : id });
-        console.log(deleteStatus);
-        res.redirect("/dogs");
+        const deleteStatus = await Dog.findByIdAndDelete(id);
+        if (!deleteStatus) {
+            throw new Error(`Dog with id ${id} does not exist`);
+        }
     } catch (error) {
-        
+        console.error(error);
+    } finally {
+        res.redirect("/dogs");
     }
 });
 

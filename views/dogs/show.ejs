@@ -28,13 +28,20 @@
                         <p><%- dog.description %></p>
                     </p>
                     <a class="btn btn-warning" href="/dogs/<%= dog._id %>/edit">Edit</a>
-                    <form action="/dogs/<%= dog._id %>?_method=DELETE" method="POST" class="d-inline">
+                    <form action="/dogs/<%= dog.id %>?_method=DELETE" method="POST" class="d-inline">
                         <button class="btn btn-danger">Delete</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col">
+            <a href="/dogs">Go Back</a>
+        </div>
+    </div>
+
 </div>
 
 <% include ../partials/footer %>
