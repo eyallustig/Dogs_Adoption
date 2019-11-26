@@ -1,9 +1,9 @@
-const express = require("express"),
+const express = require('express'),
     router = express.Router();
 
 // landing page
 router.get('/', (req, res) => {
-    res.render("landing");
+    res.render('landing');
 });
 
 module.exports = router;

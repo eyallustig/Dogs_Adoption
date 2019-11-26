@@ -1,0 +1,43 @@
+<% include ../partials/header %>
+
+<div class="row">
+    <div class="col-md-5 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title text-center mb-3"><i class="fas fa-user-plus"></i> Register</h1>
+                <% include ../partials/messages %>
+                <form action="/users/register" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="name" id="name" name="user[name]" class="form-control" placeholder="Enter name"
+                            value="<%= typeof user != 'undefined' ? user.name : '' %>" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="user[email]" class="form-control" placeholder="Enter Email"
+                            value="<%= typeof user != 'undefined' ? user.email : '' %>" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Create Password</label>
+                        <input type="password" id="password" name="user[password]" class="form-control"
+                            placeholder="Enter password" pattern=".{6,}" title="Password must be at least 6 characters"
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">Confirm Password</label>
+                        <input type="password" id="password2" name="user[password2]" class="form-control"
+                            placeholder="Enter Password" pattern=".{6,}" title="Password must be at least 6 characters"
+                            required />
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </form>
+
+                <p class="lead mt-4">
+                    Have An Account? <a href="/users/login" class="card-link">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
