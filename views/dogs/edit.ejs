@@ -1,13 +1,15 @@
 <% include ../partials/header %>
 
 <div class="container">
-    <div class="row text-center pb-4 pt-2">
+
+    <div class="row text-center mb-4 mt-2">
         <div class="col">
             <h2 class="display-5"><i class="fas fa-paw"></i> Edit <%= dog.name %></h2>
         </div>
     </div>
 
     <form action="/dogs/<%= dog.id %>?_method=PUT" method="POST">
+
         <div class="row justify-content-around">
             <div class="col-sm-5">
                 <div class="form-group">
@@ -37,15 +39,18 @@
         <div class="row pl-2">
             <div class="col pl-5">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="dog[age]" id="puppy" value="Puppy" class="custom-control-input" required>
+                    <input type="radio" name="dog[age]" id="puppy" value="Puppy" class="custom-control-input" required
+                        <% if (dog.age === "Puppy") { %> checked <% } %>>
                     <label class="custom-control-label" for="puppy">Puppy</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="dog[age]" id="adult" value="Adult" class="custom-control-input">
+                    <input type="radio" name="dog[age]" id="adult" value="Adult" class="custom-control-input"
+                        <% if (dog.age === "Adult") { %> checked <% } %>>
                     <label class="custom-control-label" for="adult">Adult</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="dog[age]" id="senior" value="Senior" class="custom-control-input">
+                    <input type="radio" name="dog[age]" id="senior" value="Senior" class="custom-control-input"
+                        <% if (dog.age === "Senior") { %> checked <% } %>>
                     <label class="custom-control-label" for="senior">Senior</label>
                 </div>
             </div>
@@ -54,11 +59,13 @@
         <div class="row pl-2">
             <div class="col pl-5">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="dog[gender]" id="male" value="Male" class="custom-control-input" required>
+                    <input type="radio" name="dog[gender]" id="male" value="Male" class="custom-control-input"
+                        <% if (dog.gender === "Male") { %> checked <% } %> required>
                     <label class="custom-control-label" for="male">Male</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="dog[gender]" id="female" value="Female" class="custom-control-input">
+                    <input type="radio" name="dog[gender]" id="female" value="Female" class="custom-control-input"
+                        <% if (dog.gender === "Female") { %> checked <% } %>>
                     <label class="custom-control-label" for="female">Female</label>
                 </div>
             </div>
@@ -67,15 +74,18 @@
         <div class="row pl-2">
             <div class="col pl-5">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="dog[size]" id="small" value="Small" class="custom-control-input" required>
+                    <input type="radio" name="dog[size]" id="small" value="Small" class="custom-control-input" required
+                        <% if (dog.size === "Small") { %> checked <% } %>>
                     <label class="custom-control-label" for="small">Small</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="dog[size]" id="medium" value="Medium" class="custom-control-input">
+                    <input type="radio" name="dog[size]" id="medium" value="Medium" class="custom-control-input"
+                        <% if (dog.size === "Medium") { %> checked <% } %>>
                     <label class="custom-control-label" for="medium">Medium</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="dog[size]" id="large" value="Large" class="custom-control-input">
+                    <input type="radio" name="dog[size]" id="large" value="Large" class="custom-control-input"
+                        <% if (dog.size === "Large") { %> checked <% } %>>
                     <label class="custom-control-label" for="large">Large</label>
                 </div>
             </div>
@@ -100,9 +110,9 @@
 
     </form>
 
-    <div class="row">
+    <div class="row ml-4">
         <div class="col">
-            <a href="/dogs/<%= dog.id %>">Go Back</a>
+            <a class="btn btn-dark btn-sm" href="/dogs/<%= dog.id %>">Go Back</a>
         </div>
     </div>
 
