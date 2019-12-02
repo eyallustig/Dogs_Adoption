@@ -4,7 +4,7 @@
     <div class="row justify-content-around">
         <div class="col-7">
             <div class="card ml-3 mb-3">
-                <img src="<%= dog.image %>" class="card-img-top" alt="<%= dog.name %>">
+                <img src="<%= dog.image %>" class="card-img-top show-dog" alt="<%= dog.name %>">
                 <div class="card-body">
                     <h3 class="card-title"><%= dog.name %></h3>
                     <p class="card-text">
@@ -26,11 +26,15 @@
                         <hr>
                         <h4>Meet <%= dog.name %></h4>
                         <p><%- dog.description %></p>
+                        <hr>
+                        <em>Submitted by: <%= dog.author.username %> </em>
                     </p>
+                    <% if (currentUser && dog.author.id.equals(currentUser._id)) { %>
                     <a class="btn btn-warning" href="/dogs/<%= dog._id %>/edit">Edit</a>
                     <form action="/dogs/<%= dog.id %>?_method=DELETE" method="POST" class="d-inline">
                         <button class="btn btn-danger">Delete</button>
                     </form>
+                    <% } %>
                 </div>
             </div>
         </div>

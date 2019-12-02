@@ -8,14 +8,9 @@
                 <% include ../partials/messages %>
                 <form action="/users/register" method="POST">
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="name" id="name" name="user[name]" class="form-control" placeholder="Enter name"
-                            value="<%= typeof user != 'undefined' ? user.name : '' %>" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="user[email]" class="form-control" placeholder="Enter Email"
-                            value="<%= typeof user != 'undefined' ? user.email : '' %>" required />
+                        <label for="username">Username</label>
+                        <input type="name" id="username" name="user[username]" class="form-control" placeholder="Enter username"
+                            value="<%= typeof username != 'undefined' ? user.username : '' %>" required />
                     </div>
                     <div class="form-group">
                         <label for="password">Create Password</label>

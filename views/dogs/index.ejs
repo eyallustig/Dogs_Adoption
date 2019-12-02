@@ -1,7 +1,8 @@
 <% include ../partials/header %>
 
-<div class="jumbotron p-3">
-    <div class="container text-center">
+<div class="container text-center">
+    <% include ../partials/messages %>
+    <div class="jumbotron p-3">
         <h1 class="display-4">Where Dogs Find Their People</h1>
         <p class="lead">Thousands of adoptable dogs are looking for people. People like you.</p>
         <a class="btn btn-outline-primary" href="/dogs/new" role="button"><i class="fas fa-paw"></i> Add a new dog</a>
@@ -13,7 +14,7 @@
         <% dogs.forEach(dog => { %>
         <div class="col-sm-6 col-md-4 col-xl-3 mb-4">
             <div class="card">
-                <img src="<%= dog.image %>" class="card-img-top border" alt="<%= dog.name %>">
+                <img src="<%= dog.image %>" class="card-img-top border all-dogs" alt="<%= dog.name %>">
                 <div class="card-body">
                     <h5 class="card-title"><%= dog.name %></h5>
                     <p class="card-text">
