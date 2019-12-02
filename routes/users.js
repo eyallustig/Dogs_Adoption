@@ -29,7 +29,7 @@ router.post('/register', async (req, res) => {
 
         if (errors.length > 0) {
             res.render('users/register', {
-                usename,
+                username,
                 errors
             });
         } else {
