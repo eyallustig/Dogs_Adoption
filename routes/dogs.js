@@ -24,7 +24,7 @@ router.get('/new', middleware.isLoggedIn, (req, res) => {
 // CREATE - Create a new dog, then redirect somewhere
 router.post('/', middleware.isLoggedIn, async (req, res) => {
     try {
-        let newDog = req.body.dog;
+        const newDog = req.body.dog;
         newDog.author = {
             id: req.user._id,
             username: req.user.username
@@ -51,6 +51,7 @@ router.get('/:id', async (req, res) => {
         } else {
             // replace all line breaks in a string with <br> tags
             foundDog.description = foundDog.description.replace(/(?:\r\n|\r|\n)/g, '<br>');
+
             res.render('dogs/show', {
                 dog: foundDog
             });

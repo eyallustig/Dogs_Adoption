@@ -1,0 +1,37 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <form action="/dogs/<%= foundDog._id %>/comments" method="POST">
+
+        <div class="row text-center mt-2 mb-4">
+            <div class="col">
+                <h2 class="display-5"> Add A New Comment To <%= foundDog.name %> <i class="fas fa-dog"></i></h2>
+            </div>
+        </div>
+
+        <div class="row justify-content-around">
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="comment[text]" placeholder="Write your comment here" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-around">
+                <div class="col-2">
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Submit!</button>
+                    </div>
+                </div>
+            </div>
+    </form>
+
+    <div class="row ml-4">
+        <div class="col">
+            <a class="btn btn-dark btn-sm" href="/dogs">Go Back</a>
+        </div>
+    </div>
+
+</div>
+
+<% include ../partials/footer %>

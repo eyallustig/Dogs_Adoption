@@ -34,3 +34,7 @@ body {
     height: 80vh;
     object-fit: cover;
 }
+
+.comment {
+    line-height: 60%;
+}

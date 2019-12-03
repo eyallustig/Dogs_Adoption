@@ -71,6 +71,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/', require('./routes/index'));
+app.use('/dogs/:id/comments', require('./routes/comments'));
 app.use('/dogs', require('./routes/dogs'));
 app.use('/users', require('./routes/users'));
 

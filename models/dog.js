@@ -40,10 +40,16 @@ const dogSchema = new mongoose.Schema({
     author: {
         id: {
             type: mongoose.Types.ObjectId,
-            ref: "User"
+            ref: 'User'
         },
         username: String
-    }
+    },
+    comments: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: 'Comment'
+        }
+    ]
 });
 
 module.exports = mongoose.model("Dog", dogSchema);
