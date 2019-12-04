@@ -1,6 +1,7 @@
 const express = require('express'),
     Dog = require('../models/dog'),
     middleware = require('../middleware/index'),
+    moment = require('moment'),
     router = express.Router();
 
 // INDEX - show all dogs
@@ -44,14 +45,17 @@ router.get('/:id', async (req, res) => {
         const {
             id
         } = req.params;
-        let foundDog = await Dog.findById(id);
+        let foundDog = await Dog.findById(id).populate('comments');
         if (!foundDog) {
             req.flash('error_msg', 'Dog not found');
             res.redirect('/dogs');
         } else {
             // replace all line breaks in a string with <br> tags
             foundDog.description = foundDog.description.replace(/(?:\r\n|\r|\n)/g, '<br>');
-
+            // calculate time passed for each comment
+            foundDog.comments.forEach(comment => {
+                comment.timePassed = moment(comment.date).fromNow();
+            });
             res.render('dogs/show', {
                 dog: foundDog
             });

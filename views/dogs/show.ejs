@@ -44,19 +44,28 @@
         <div class="col-8">
             <div class="card ml-3 mb-3">
                 <div class="card-body">
-                    <div class="text-right">
+                    <div class="text-right mb-2">
                         <a href="/dogs/<%= dog._id %>/comments/new" class="btn btn-success active" role="button"
                             aria-pressed="true">Add New Comment</a>
                     </div>
-                    <p class="card-text">
+                    <div>
                         <% dog.comments.forEach( comment => { %>
-                        <div class="d-inline"> <%= comment.text %></div>
-                        <div class="d-inline float-right">10 Days Ago</div>
-                        <div class="comment">
-                            <small>Comment Author</small>
+                        <div>
+                            <div class="d-inline"> <%= comment.text %> </div>
+                            <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                            <a class="btn btn-warning btn-sm" href="/dogs/<%= dog._id %>/comments/<%= comment._id %>/edit">Edit</a>
+                            <form action="/dogs/<%= dog.id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" class="d-inline">
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                            <% } %>
+                            <div class="float-right d-inline"><%= comment.timePassed %></div>
+                            <div class="comment">
+                                <small class="text-muted"> <%= comment.author.username %> </small>
+                            </div>
+                            <hr>
                         </div>
                         <% }); %>
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>
