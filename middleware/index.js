@@ -40,18 +40,19 @@ middlewareObj.checkCommentAuthor = async (req, res, next) => {
         const comment = await Comment.findById(comment_id);
         if (!comment) {
             req.flash('error_msg', 'Comment not found');
+            res.redirect('back');
         } else {
             if (comment.author.id.equals(req.user._id)) {
                 return next();
             } else {
                 req.flash('error_msg', 'You don\'t have premission to do that');
+                res.redirect('back');
             }
         }
     } catch (error) {
         console.log(error);
-    } finally {
-        res.redirect(`/dogs/${id}`);
-    }
+        res.redirect('back');
+    } 
 }
 
 module.exports = middlewareObj;

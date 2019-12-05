@@ -1,5 +1,6 @@
 const express = require('express'),
     Dog = require('../models/dog'),
+    Comment = require('../models/Comment'),
     middleware = require('../middleware/index'),
     moment = require('moment'),
     router = express.Router();
@@ -67,7 +68,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // EDIT - show edit form for one dog
-router.get('/:id/edit', [middleware.isLoggedIn, middleware.checkDogAuthor] , async (req, res) => {
+router.get('/:id/edit', [middleware.isLoggedIn, middleware.checkDogAuthor], async (req, res) => {
     try {
         const {
             id
@@ -112,12 +113,22 @@ router.put('/:id', [middleware.isLoggedIn, middleware.checkDogAuthor], async (re
 // DELETE - delete a particular dog, then redirect somewhere
 router.delete('/:id', [middleware.isLoggedIn, middleware.checkDogAuthor], async (req, res) => {
     try {
-        const {
-            id
-        } = req.params;
-        const deleteStatus = await Dog.findByIdAndDelete(id);
-        if (!deleteStatus) {
+        const id = req.params.id;
+        const foundDog = await Dog.findById(id);
+        if (!foundDog) {
             req.flash('error_msg', 'Dog not found');
+        } else {
+            // Delete dog comments
+            const deleteCommentStatus = await Comment.deleteMany({
+                _id: {
+                    $in: foundDog.comments
+                }
+            });
+            console.log(deleteCommentStatus);
+            // Delete dog
+            const deleteDogStatus = await Dog.deleteOne({_id: id});
+            console.log(deleteDogStatus);
+            req.flash('success_msg', 'Successfully deleted dog');
         }
     } catch (error) {
         console.log(error);

@@ -61,7 +61,7 @@ router.get('/:comment_id/edit', [middleware.isLoggedIn, middleware.checkCommentA
         const foundComment = await Comment.findById(comment_id);
         if (!foundComment) {
             req.flash('error_msg', 'Comment not found');
-            res.redirect('back');
+            res.redirect(`/dogs/${dogId}`);
         } else {
             res.render('comments/edit', {
                 dogId,
@@ -70,7 +70,7 @@ router.get('/:comment_id/edit', [middleware.isLoggedIn, middleware.checkCommentA
         }
     } catch (error) {
         console.log(error);
-        res.redirect('back')
+        res.redirect(`/dogs/${dogId}`);
     }
 });
 
@@ -82,6 +82,7 @@ router.put('/:comment_id', [middleware.isLoggedIn, middleware.checkCommentAuthor
         const dog_id = req.params.id;
         const comment = await Comment.findById(comment_id);
         comment.text = editedText;
+        comment.date = Date.now();
         await comment.save();
         req.flash('success_msg', 'Successfully edited comment');
         res.redirect(`/dogs/${dog_id}`);
@@ -98,7 +99,7 @@ router.delete('/:comment_id', [middleware.isLoggedIn, middleware.checkCommentAut
         const {
             comment_id
         } = req.params;
-        const deleteStatus = await Comment.remove({
+        const deleteStatus = await Comment.deleteOne({
             _id: comment_id
         });
         console.log(deleteStatus);
