@@ -10,8 +10,18 @@ body {
     padding-top: 40vh;
 }
 
+#landing-msg {
+    z-index: 1;
+    position: relative;
+    text-align: center;
+}
+
 #landing-header h1 {
     color: #fff;
+}
+
+.my-div {
+    border: 1px solid pink;
 }
 
 .slideshow {

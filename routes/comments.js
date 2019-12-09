@@ -2,112 +2,101 @@ const middleware = require('../middleware/index'),
     Dog = require('../models/dog'),
     Comment = require('../models/Comment'),
     express = require('express'),
-    router = express.Router({
-        mergeParams: true
-    });
+    router = express.Router({ mergeParams: true })
 
-// Comment Page
-router.get('/new', middleware.isLoggedIn, async (req, res) => {
+// NEW - show form to create new comment
+router.get('/new', middleware.isLoggedIn, async (req, res, next) => {
     try {
-        const foundDog = await Dog.findById(req.params.id);
+        const { id } = req.params
+        const foundDog = await Dog.findById(id)
         if (!foundDog) {
-            req.flash('error_msg', 'Dog not found');
-            req.redirect('/dogs');
+            console.log('Reached here!!!')
+            req.flash('error_msg', 'Dog not found')
+            res.redirect('/dogs')
         } else {
-            res.render('comments/new', {
-                foundDog
-            });
+            res.render('comments/new', { foundDog })
         }
     } catch (error) {
-        console.log(error);
-        res.redirect('back')
+        next(error) // Pass errors to Express.
     }
-});
+})
 
-// Create comment
-router.post('/', middleware.isLoggedIn, async (req, res) => {
+// CREATE - Create a new comment, then redirect somewhere
+router.post('/', middleware.isLoggedIn, async (req, res, next) => {
     try {
-        const dogId = req.params.id;
-        const foundDog = await Dog.findById(dogId);
+        const dogId = req.params.id
+        const foundDog = await Dog.findById(dogId)
         if (!foundDog) {
-            req.flash('error_msg', 'Dog not found');
-            res.redirect('/dogs');
+            req.flash('error_msg', 'Dog not found')
+            res.redirect('/dogs')
         } else {
-            const {
-                comment
-            } = req.body;
+            const { comment } = req.body
             comment.author = {
                 id: req.user._id,
                 username: req.user.username
             }
-            const newComment = await Comment.create(comment);
-            foundDog.comments.push(newComment);
-            await foundDog.save();
-            req.flash('success_msg', 'Successfully added comment');
-            res.redirect(`/dogs/${dogId}`);
+            const newComment = await Comment.create(comment)
+            foundDog.comments.push(newComment)
+            await foundDog.save()
+            req.flash('success_msg', 'Successfully added comment')
+            res.redirect(`/dogs/${dogId}`)
         }
     } catch (error) {
-        console.log(error);
-        res.redirect('back')
+        next(error) // Pass errors to Express.
     }
-});
+})
 
-// Edit comment page
-router.get('/:comment_id/edit', [middleware.isLoggedIn, middleware.checkCommentAuthor] , async (req, res) => {
+// EDIT - show edit form for one comment
+router.get('/:commentId/edit', middleware.checkCommentAuthor, async (req, res, next) => {
     try {
-        const dogId = req.params.id;
-        const comment_id = req.params.comment_id;
-        // find the comment
-        const foundComment = await Comment.findById(comment_id);
+        const { id, commentId } = req.params
+        const foundComment = await Comment.findById(commentId)
         if (!foundComment) {
-            req.flash('error_msg', 'Comment not found');
-            res.redirect(`/dogs/${dogId}`);
+            req.flash('error_msg', 'Comment not found')
+            res.redirect(`/dogs/${id}`)
         } else {
             res.render('comments/edit', {
-                dogId,
+                id,
                 foundComment
-            });
+            })
         }
     } catch (error) {
-        console.log(error);
-        res.redirect(`/dogs/${dogId}`);
+        next(error) // Pass errors to Express.
     }
-});
+})
 
-// Edit comment
-router.put('/:comment_id', [middleware.isLoggedIn, middleware.checkCommentAuthor], async (req, res) => {
+// UPDATE - update a particular comment and then redirect somewhere
+router.put('/:commentId', middleware.checkCommentAuthor, async (req, res, next) => {
     try {
-        const editedText = req.body.text;
-        const comment_id = req.params.comment_id;
-        const dog_id = req.params.id;
-        const comment = await Comment.findById(comment_id);
-        comment.text = editedText;
-        comment.date = Date.now();
-        await comment.save();
-        req.flash('success_msg', 'Successfully edited comment');
-        res.redirect(`/dogs/${dog_id}`);
+        const editedText = req.body.text
+        const { id, commentId } = req.params
+        const foundComment = await Comment.findById(commentId)
+        if (!foundComment) {
+            req.flash('error_msg', 'Comment not found')
+            res.redirect(`/dogs/${id}`)
+        } else {
+            foundComment.text = editedText
+            foundComment.date = Date.now()
+            await foundComment.save()
+            req.flash('success_msg', 'Successfully edited comment')
+            res.redirect(`/dogs/${id}`)
+        }
     } catch (error) {
-        console.log(error);
-        res.redirect('back');
+        next(error) // Pass errors to Express.
     }
-});
+})
 
-// Delete comment
-router.delete('/:comment_id', [middleware.isLoggedIn, middleware.checkCommentAuthor], async (req, res) => {
+// DELETE - delete a particular comment, then redirect somewhere
+router.delete('/:commentId', middleware.checkCommentAuthor, async (req, res, next) => {
     try {
-        const dog_id = req.params.id;
-        const {
-            comment_id
-        } = req.params;
-        const deleteStatus = await Comment.deleteOne({
-            _id: comment_id
-        });
-        console.log(deleteStatus);
-        req.flash('success_msg', 'Successfully deleted comment');
-        res.redirect(`/dogs/${dog_id}`);
+        const { id, commentId } = req.params
+        const deleteStatus = await Comment.deleteOne({ _id: commentId })
+        console.log(deleteStatus)
+        req.flash('success_msg', 'Successfully deleted comment')
+        res.redirect(`/dogs/${id}`)
     } catch (error) {
-        console.log(error);
-        res.redirect('back');
+        next(error) // Pass errors to Express.
     }
-});
-module.exports = router;
+})
+
+module.exports = router

@@ -6,52 +6,61 @@ let middlewareObj = {};
 
 middlewareObj.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
-        return next();
+        return next()
     }
-    req.flash('error_msg', 'You need to be logged in to do that');
-    res.redirect('/users/login');
+    req.flash('error_msg', 'You need to be logged in to do that')
+    res.redirect('/users/login')
 }
 
 middlewareObj.checkDogAuthor = async (req, res, next) => {
     try {
-        // get dog from DB
-        const { id } = req.params;
-        const foundDog = await Dog.findById(id);
-        if (!foundDog) {
-            req.flash('error_msg', 'Dog not found');
-            res.redirect('/dogs');
-        } else {
-            // check dog ownership
-            if (foundDog.author.id.equals(req.user._id)) {
-                return next();
+        const { id } = req.params
+        // Check if user logged in
+        if (req.isAuthenticated()) {
+            const foundDog = await Dog.findById(id)
+            if (!foundDog) {
+                req.flash('error_msg', 'Dog not found')
+                res.redirect('/dogs')
+            } else {
+                // check dog ownership
+                if (foundDog.author.id.equals(req.user._id)) {
+                    return next()
+                }
+                req.flash('error_msg', 'You don\'t have premission to do that')
+                res.redirect(`/dogs/${id}`)
             }
-            req.flash('error_msg', 'You don\'t have premission to do that');
-            res.redirect(`/dogs/${id}`);
+        } else {
+            req.flash('error_msg', 'You don\'t have premission to do that')
+            res.redirect(`/dogs/${id}`)
         }
     } catch (error) {
-        console.log(error);
-        res.redirect(`/dogs/${id}`);
+        next(error) // Pass errors to Express.
     }
 }
 
 middlewareObj.checkCommentAuthor = async (req, res, next) => {
-    const {id, comment_id} = req.params;
     try {
-        const comment = await Comment.findById(comment_id);
-        if (!comment) {
-            req.flash('error_msg', 'Comment not found');
-            res.redirect('back');
-        } else {
-            if (comment.author.id.equals(req.user._id)) {
-                return next();
+        const { id, commentId } = req.params
+        // Check if user logged in
+        if (req.isAuthenticated()) {
+            const comment = await Comment.findById(commentId)
+            if (!comment) {
+                req.flash('error_msg', 'Comment not found')
+                res.redirect(`/dogs/${id}`)
             } else {
-                req.flash('error_msg', 'You don\'t have premission to do that');
-                res.redirect('back');
+                if (comment.author.id.equals(req.user._id)) {
+                    return next()
+                } else {
+                    req.flash('error_msg', 'You don\'t have premission to do that')
+                    res.redirect(`/dogs/${id}`)
+                }
             }
+        } else {
+            req.flash('error_msg', 'You don\'t have premission to do that')
+            res.redirect(`/dogs/${id}`)
         }
     } catch (error) {
-        console.log(error);
-        res.redirect('back');
+        next(error) // Pass errors to Express.
     } 
 }
 

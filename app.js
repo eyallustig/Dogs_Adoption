@@ -75,6 +75,13 @@ app.use('/dogs/:id/comments', require('./routes/comments'));
 app.use('/dogs', require('./routes/dogs'));
 app.use('/users', require('./routes/users'));
 
+// Error handling
+app.use(function (err, req, res, next) {
+    console.error(err.stack);
+    req.flash('error_msg', 'Something went wrong');
+    res.redirect('back');
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
