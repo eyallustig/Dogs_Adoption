@@ -1,8 +1,8 @@
 const Dog = require('../models/dog'),
-    Comment = require('../models/Comment');
+    Comment = require('../models/Comment')
 
 // All the middleware goes here
-let middlewareObj = {};
+let middlewareObj = {}
 
 middlewareObj.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -64,4 +64,4 @@ middlewareObj.checkCommentAuthor = async (req, res, next) => {
     } 
 }
 
-module.exports = middlewareObj;
+module.exports = middlewareObj

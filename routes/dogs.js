@@ -8,7 +8,7 @@ const express = require('express'),
 // INDEX - show all dogs
 router.get('/', async (req, res, next) => {
     try {
-        const allDogs = await Dog.find();
+        const allDogs = await Dog.find()
         res.render('dogs/index', { allDogs })
     } catch (error) {
         next(error) // Pass errors to Express.
@@ -84,7 +84,7 @@ router.put('/:id', middleware.checkDogAuthor, async (req, res, next) => {
             req.flash('error_msg', 'Dog not found')
             res.redirect('/dogs')
         } else {
-            req.flash('success_msg', `Successfully edited ${updatedDog.name}`)
+            req.flash('success_msg', `Successfully edited ${dog.name}`)
             res.redirect(`/dogs/${id}`)
         }
     } catch (error) {
@@ -117,7 +117,7 @@ router.delete('/:id', middleware.checkDogAuthor, async (req, res, next) => {
     } catch (error) {
         next(error) // Pass errors to Express.
     }
-});
+})
 
 // replace all line breaks in a string with <br> tags
 const replaceLineBreak = str => str.replace(/(?:\r\n|\r|\n)/g, '<br>')
@@ -128,4 +128,4 @@ const calcTimePassed = comments => {
     return comments
 }
 
-module.exports = router;
+module.exports = router

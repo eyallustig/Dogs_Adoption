@@ -38,3 +38,7 @@ body {
 .comment {
     line-height: 60%;
 }
+
+.bg-light {
+    background-color: #f7f7f7!important;
+}

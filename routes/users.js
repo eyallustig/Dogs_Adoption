@@ -12,10 +12,10 @@ router.post('/register', async (req, res, next) => {
     try {
         const { user } = req.body
         const { username, password, password2 } = user
-        let errors = [];
+        let errors = []
 
         if (password !== password2) {
-            errors.push( {msg: 'Passwords do not match'} );
+            errors.push( {msg: 'Passwords do not match'} )
         }
 
         if (errors.length > 0) {
@@ -33,13 +33,13 @@ router.post('/register', async (req, res, next) => {
                     errors
                 })
             } else {
-                const newUser = new User( {username, password} );
+                const newUser = new User( {username, password} )
                 // Hash password
                 bcrypt.genSalt(10, async (err, salt) => {
                     bcrypt.hash(newUser.password, salt, async (err, hash) => {
                         // Store hash in your password DB.
-                        newUser.password = hash;
-                        await newUser.save();
+                        newUser.password = hash
+                        await newUser.save()
                         req.flash('success_msg', 'You are now registered and can log in')
                         res.redirect("/users/login")
                     })
@@ -67,8 +67,8 @@ router.post('/login', (req, res, next) => {
 // Logout Handle
 router.get('/logout', (req, res) => {
     req.logout()
-    req.flash("error", 'Logged you out')
+    req.flash("error_msg", 'Logged you out')
     res.redirect('/dogs')
 })
 
-module.exports = router;
+module.exports = router

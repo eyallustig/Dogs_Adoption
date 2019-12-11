@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const dogSchema = new mongoose.Schema({
     name: {
@@ -50,6 +50,6 @@ const dogSchema = new mongoose.Schema({
             ref: 'Comment'
         }
     ]
-});
+})
 
-module.exports = mongoose.model("Dog", dogSchema);
+module.exports = mongoose.model("Dog", dogSchema)
