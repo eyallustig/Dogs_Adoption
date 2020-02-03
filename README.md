@@ -12,7 +12,7 @@ To see the app in action, go to https://immense-lake-05163.herokuapp.com/
   * One cannot edit or delete posts and comments created by other users
 * Manage dog posts with basic functionalities:
   * Create, edit and delete posts and comments
-* Flash messages respondins to user's interaction with the app
+* Flash messages responding to user's interaction with the app
 * Responsive web design
  
 ## Getting Started ##
